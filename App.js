@@ -29,7 +29,7 @@ export default class App extends React.Component {
     )
   }
 
-  _keyExtractor = (datasource, index) => dataSource.email;
+  _keyExtractor = (datasource, index) => datasource.email;
 
 
 
@@ -43,16 +43,22 @@ export default class App extends React.Component {
   render() {
     if (this.state.isLoading) {
       return (
-        <FlatList
+        <View style={styles.progress}>
+          <ActivityIndicator size="large" color="#01CBC6" />
+        </View>
+      );
+    }
+    return (
+      <FlatList
         data= {this.state.dataSource}
         keyExtractor={this._keyExtractor}
-        renderItem={ (item) => (
+        renderItem={ ({item}) => (
           <Card>
             <CardItem>
               <View style={styles.container}>
                 <Image
                    style={styles.profilepic}
-                   source={{uri: item.picture.medium}}
+                   source={{uri: item.picture.thumbnail}}
                 />
               </View>
               <View style={styles.userinfo}>
@@ -73,12 +79,6 @@ export default class App extends React.Component {
           </Card>
         )  } 
         ></FlatList>
-      );
-    }
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start  hello working on your app!</Text>
-      </View>
     );
   }
   
@@ -100,8 +100,13 @@ const styles = StyleSheet.create({
   userinfo: {
     flex: 5,
     flexDirection: "column",
-    
+    marginStart: 20
   },
+  progress: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  }
 });
 
 
